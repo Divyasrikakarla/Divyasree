@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saving User Preferences</title>
+
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .container{
+        width: 400px;
+        margin: auto;
+        padding: 20px;
+        border: 2px solid black;
+        background-color: #f2f2f2;
+    }
+
+    select, button{
+        padding: 10px;
+        margin: 10px;
+        width: 250px;
+    }
+
+    #message{
+        color: green;
+        font-weight: bold;
+    }
+</style>
+
+<script>
+    function savePreference() {
+        let eventType = document.getElementById("eventType").value;
+
+        localStorage.setItem("preferredEvent", eventType);
+        sessionStorage.setItem("currentEvent", eventType);
+
+        document.getElementById("message").innerHTML =
+        "Preference Saved Successfully!";
+    }
+
+    function loadPreference() {
+        let savedEvent = localStorage.getItem("preferredEvent");
+
+        if(savedEvent){
+            document.getElementById("eventType").value = savedEvent;
+        }
+    }
+
+    function clearPreferences() {
+        localStorage.clear();
+        sessionStorage.clear();
+
+        document.getElementById("eventType").value = "";
+
+        document.getElementById("message").innerHTML =
+        "Preferences Cleared!";
+    }
+</script>
+
+</head>
+
+<body onload="loadPreference()">
+
+<div class="container">
+
+    <h2>Save Your Event Preference</h2>
+
+    <label>Select Event Type:</label>
+    <br><br>
+
+    <select id="eventType">
+        <option value="">Choose Event</option>
+        <option value="Community Cleanup">Community Cleanup</option>
+        <option value="Food Festival">Food Festival</option>
+        <option value="Sports Day">Sports Day</option>
+        <option value="Tree Planting">Tree Planting</option>
+        <option value="Health Camp">Health Camp</option>
+    </select>
+
+    <br>
+
+    <button onclick="savePreference()">
+        Save Preference
+    </button>
+
+    <button onclick="clearPreferences()">
+        Clear Preferences
+    </button>
+
+    <p id="message"></p>
+
+</div>
+
+</body>
+</html>
